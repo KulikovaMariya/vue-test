@@ -1,8 +1,8 @@
 <template>
   <div class="table">
     <div class="table__header">
-      <div class="table__title column-1">Имя</div>
-      <div class="table__title column-2">Телефон</div>
+      <div class="table__title column-1" @click="onclick('name')">Имя</div>
+      <div class="table__title column-2" @click="onclick('phoneNumber')">Телефон</div>
     </div>
       <div class="table__body">
         <div class="column-1">
@@ -39,7 +39,9 @@
       }
     },
     methods: {
-    
+      onclick (field) {
+        this.$store.dispatch('SORT_USERS', field)
+      }
     }
   }
 </script>

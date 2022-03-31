@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
-import { getUserByUUID } from "./helpers";
+import { getUserByUUID, sortUsersByField } from "./helpers";
 
 Vue.use(Vuex)
 
@@ -31,11 +31,17 @@ export const store = new Vuex.Store({
       } else {
         state.users.push(payload)
       }
+    },
+    SORT_USERS: (state, payload) => {
+      sortUsersByField(state.users, payload)
     }
   },
   actions: {
     ADD_USER: ({ commit }, payload) => {
       commit('ADD_USER', payload)
+    },
+    SORT_USERS({ commit }, payload) {
+      commit('SORT_USERS', payload)
     }
   },
   plugins: [vuexLocal.plugin]
