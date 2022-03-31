@@ -12,8 +12,10 @@
 </template>
 
 <script>
+import User from '@/models/user'
 import UsersTable from '@/components/UsersTable'
 import AddUserForm from '@/components/AddUserForm'
+import UserService from '@/services/userService'
 
 export default {
   name: 'App',
@@ -21,19 +23,12 @@ export default {
   data () {
     return {
       localStorage: window.localStorage,
-      dialogIsVisible: false,
-      users: [{
-        name: 'petya',
-        phoneNumber: 76467464,
-        id: 9,
-        subordinate: [
-          {
-            name: 'vasya',
-            phoneNumber: 999999,
-            id: 10,
-          }
-        ]
-      }]
+      dialogIsVisible: false
+    }
+  },
+  computed: {
+    users () {
+      return this.$store.getters.users
     }
   },
   methods: {
