@@ -51,7 +51,7 @@ import UserService from '@/services/userService'
     },
    computed: {
       supervisors () {
-        return UserService.getUsersFlatList(this.$store.getters.users)
+        return UserService.getUsersFlatList()
       }
    },
     methods: {

@@ -1,12 +1,11 @@
 import {store} from "../store";
 
 export default class UserService {
-
   // TODO: сделать без внутренней функции
-  static getUsersFlatList(users) {
+  static getUsersFlatList () {
     const list = []
 
-    function _getUsersFlatList(users) {
+    function _getUsersFlatList (users) {
       for (let i = 0; i < users.length; i++) {
         if (users[i].subordinates && users[i].subordinates.length > 0) {
           _getUsersFlatList(users[i].subordinates)
@@ -15,11 +14,7 @@ export default class UserService {
       }
     }
 
-    _getUsersFlatList(users)
+    _getUsersFlatList (store.getters.users)
     return list
-  }
-
-  static addUser(user) {
-    return store.dispatch('ADD_USER', user)
   }
 }

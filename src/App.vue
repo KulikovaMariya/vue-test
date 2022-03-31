@@ -15,7 +15,6 @@
 import User from '@/models/user'
 import UsersTable from '@/components/UsersTable'
 import AddUserForm from '@/components/AddUserForm'
-import UserService from '@/services/userService'
 
 export default {
   name: 'App',
@@ -34,8 +33,8 @@ export default {
   methods: {
     onSave (user) {
       this.dialogIsVisible = false
-      this.users.push(user)
-      this.localStorage.setItem('users', JSON.stringify(this.users))
+      const newUser = new User(user)
+      this.$store.dispatch('ADD_USER', newUser)
     }
   }
 }
