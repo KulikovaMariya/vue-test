@@ -21,12 +21,12 @@
         <span class="form__label">Начальник</span>
       </el-col>
       <el-col :span="16">
-        <el-select v-model="user.supervisor" placeholder=" ">
+        <el-select v-model="user.supervisorUUID" placeholder=" ">
           <el-option
             v-for="supervisor in supervisors"
-            :key="supervisor.id"
+            :key="supervisor.UUID"
             :label="supervisor.name"
-            :value="supervisor.id">
+            :value="supervisor.UUID">
           </el-option>
         </el-select>
       </el-col>
@@ -36,33 +36,32 @@
 </template>
 
 <script>
-  // npm
-  // models
-  // rest
-  // utils
-  // components
-  // views
+import UserService from '@/services/userService'
 
   export default {
     name: "EmployeeForm",
     data () {
       return {
-        supervisors: [
-          {
-            name: 'Vasya',
-            id: 1
-          }
-        ],
         user: {
           name: null,
           phoneNumber: null,
-          supervisor: null
+          supervisorUUID: null
         }
       }
     },
+   computed: {
+      supervisors () {
+        return UserService.getUsersFlatList(this.$store.getters.users)
+      }
+   },
     methods: {
       onClick () {
         this.$emit('save', this.user)
+        this.resetUser()
+      },
+      resetUser () {
+        const keys = Object.keys(this.user)
+        keys.forEach(key => this.user[key] = null)
       }
     }
   }
