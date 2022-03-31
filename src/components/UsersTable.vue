@@ -1,23 +1,37 @@
 <template>
-  <table class="table">
-    <thead>
-      <tr class="table__row">
-        <th class="table__header col-1">Имя</th>
-        <th class="table__header col-2">Телефон</th>
-      </tr>
-    </thead>
-    <tbody>
-    <users-table-row v-for="user in tableData" :key="user.uuid" :user="user" />
-    </tbody>
-  </table>
+  <div class="table">
+    <div class="table__header">
+      <div class="table__title column-1">Имя</div>
+      <div class="table__title column-2">Телефон</div>
+    </div>
+      <div class="table__body">
+        <div class="column-1">
+          <users-table-column
+            v-for="user in tableData"
+            :key="user.uuid"
+            :user="user"
+            :property="'name'"
+            :padding-left="'20px'"
+          />
+        </div>
+        <div class="column-2">
+          <users-table-column
+            v-for="user in tableData"
+            :key="user.uuid"
+            :user="user"
+            :property="'phoneNumber'"
+          />
+        </div>
+      </div>
+  </div>
 </template>
 
 <script>
-  import UsersTableRow from "./UsersTableRow";
+  import UsersTableColumn from './UsersTableColumn'
 
   export default {
     name: "EmployeesTable",
-    components: { UsersTableRow },
+    components: { UsersTableColumn },
     props: {
       tableData: {
         type: Array,
@@ -31,34 +45,36 @@
 </script>
 
 <style scoped>
-  .table {
-    width: 100%;
-    padding: 20px;
-  }
-  .table__row {
+  .table__body {
+    position: relative;
     display: flex;
-    text-align: start;
-    border-bottom: 1px solid #EBEEF5;
+    width: 100%;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: normal;
+    color: #606266;
   }
   .table__header {
-    display: inline;
+    display: flex;
     text-align: start;
     line-height: 40px;
     font-size: 24px;
     font-weight: bold;
     color: #606266;
   }
-  .table__data {
-    line-height: 30px;
-    font-size: 18px;
-    font-weight: normal;
-    color: #606266;
-    
+  .table__title {
+    padding-left: 20px;
+    border: 0;
   }
-  .col-1 {
-    flex-grow: 2;
+  .column-1,
+  .column-2 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #606266;
   }
-  .col-2 {
-    flex-grow: 1;
+  .column-2 {
+    padding-left: 20px;
+    border-left: 0;
   }
 </style>
