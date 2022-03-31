@@ -11,13 +11,6 @@
 </template>
 
 <script>
-  // npm
-  // models
-  // rest
-  // utils
-  // components
-  // views
-
   export default {
     name: "UsersTableRow",
     props: {

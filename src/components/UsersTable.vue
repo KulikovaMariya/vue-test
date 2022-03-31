@@ -7,29 +7,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="data in tableData" :key="data.name" class="table__row">
-        <td class="table__data col-1">{{ data.name }}</td>
-        <td class="table__data col-2">{{ data.phoneNumber }}</td>
-      </tr>
+    <users-table-row v-for="user in tableData" :key="user.uuid" :user="user" />
     </tbody>
   </table>
 </template>
 
 <script>
-  // npm
-  // models
-  // rest
-  // utils
-  // components
-  // views
+  import UsersTableRow from "./UsersTableRow";
 
   export default {
     name: "EmployeesTable",
+    components: { UsersTableRow },
     props: {
       tableData: {
         type: Array,
         required: true
       }
+    },
+    methods: {
+    
     }
   }
 </script>
