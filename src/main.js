@@ -5,6 +5,7 @@ import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
+import {store} from './store'
 
 Vue.use(ElementUI, { locale })
 
@@ -14,5 +15,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   components: { App },
+  store,
   template: '<App/>'
 })
