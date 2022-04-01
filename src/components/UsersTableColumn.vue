@@ -1,9 +1,8 @@
 <template>
   <td class="column" :style="`padding-left: ${paddingLeft}`">
-    <div>{{ user[property] }}</div>
-    <template v-if="user.subordinates && user.subordinates.length > 0">
+    <span>{{ user[property] }}</span>
+    <template v-if="hasSubordinates">
       <users-table-column
-        class="sub-column"
         v-for="subUser in user.subordinates"
         :key="subUser.uuid"
         :user="subUser"
@@ -29,6 +28,11 @@
       paddingLeft: {
         type: String,
         default: '0'
+      }
+    },
+    computed: {
+      hasSubordinates () {
+        return this.user.subordinates && this.user.subordinates.length > 0
       }
     }
   }
