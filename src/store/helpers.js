@@ -4,7 +4,10 @@ export function getUserByUUID (users, UUID) {
       return users[i]
     }
     if (users[i].subordinates && users[i].subordinates.length > 0) {
-      getUserByUUID(users[i].subordinates, UUID)
+      const user = getUserByUUID(users[i].subordinates, UUID)
+      if (user) {
+        return user
+      }
     }
   }
 }
