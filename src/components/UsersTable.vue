@@ -6,7 +6,7 @@
     </div>
       <div class="table__body">
         <div class="column-1">
-          <users-table-column
+          <users-table-cell
             v-for="user in tableData"
             :key="user.uuid"
             :user="user"
@@ -15,7 +15,7 @@
           />
         </div>
         <div class="column-2">
-          <users-table-column
+          <users-table-cell
             v-for="user in tableData"
             :key="user.uuid"
             :user="user"
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-  import UsersTableColumn from './UsersTableColumn'
+  import UsersTableCell from '@/components/UsersTableCell'
 
   export default {
-    name: "EmployeesTable",
-    components: { UsersTableColumn },
+    name: "UsersTable",
+    components: { UsersTableCell },
     props: {
       tableData: {
         type: Array,
@@ -64,10 +64,6 @@
     font-weight: bold;
     color: #606266;
   }
-  .table__title {
-    padding-left: 20px;
-    border: 0;
-  }
   .column-1,
   .column-2 {
     width: 50%;
@@ -78,5 +74,10 @@
   .column-2 {
     padding-left: 20px;
     border-left: 0;
+  }
+  .table__title.column-1,
+  .table__title.column-2 {
+    text-align: center;
+    border-bottom: 0;
   }
 </style>

@@ -2,7 +2,7 @@
   <td class="column" :style="`padding-left: ${paddingLeft}`">
     <span>{{ user[property] }}</span>
     <template v-if="hasSubordinates">
-      <users-table-column
+      <users-table-cell
         v-for="subUser in user.subordinates"
         :key="subUser.uuid"
         :user="subUser"
@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: "UsersTableColumn",
+    name: "UsersTableCell",
     props: {
       user: {
         type: Object,
