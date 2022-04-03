@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import User from '@/models/user'
 import UsersTable from '@/components/UsersTable'
 import AddUserForm from '@/components/AddUserForm'
+import { v4 as uuidv4 } from 'uuid'
 
 export default {
   name: 'App',
@@ -33,7 +33,11 @@ export default {
   methods: {
     onSave (user) {
       this.dialogIsVisible = false
-      const newUser = new User(user)
+      const newUser = {
+        ...user,
+        UUID: uuidv4(),
+        subordinates: []
+      }
       this.$store.dispatch('ADD_USER', newUser)
     }
   }
