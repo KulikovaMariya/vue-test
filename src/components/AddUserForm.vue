@@ -31,7 +31,7 @@
         </el-select>
       </el-col>
     </el-row>
-    <el-button type="primary" @click="onClick">Сохранить</el-button>
+    <el-button :disabled="idDisabledBtn" type="primary" @click="onClick">Сохранить</el-button>
   </div>
 </template>
 
@@ -50,9 +50,14 @@ import { getUsersFlatList } from '@/store/helpers'
       }
     },
    computed: {
-      supervisors () {
-        return getUsersFlatList(this.$store.getters.users)
+    supervisors () {
+      return getUsersFlatList(this.$store.getters.users)
+    },
+    idDisabledBtn () {
+      if (this.user.name === null || this.user.phoneNumber === null) {
+        return true
       }
+    }
    },
     methods: {
       onClick () {
