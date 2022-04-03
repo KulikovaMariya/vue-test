@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
-import { getUserByUUID, sortUsersByField, compare, updateSortingParams } from "./helpers";
+import { sortUsersByField, addUserAndSort, updateSortingParams } from "./helpers";
 
 Vue.use(Vuex)
 
@@ -21,6 +21,7 @@ export const store = new Vuex.Store({
       direction: 0
     }
   },
+
   getters: {
     users: state => {
       return state.users;
@@ -32,22 +33,10 @@ export const store = new Vuex.Store({
       return state.sortingParams
     }
   },
+
   mutations: {
     ADD_USER: (state, payload) => {
-      let usersList
-      if (payload.supervisorUUID) {
-        const supervisor = getUserByUUID(state.users, payload.supervisorUUID)
-        if (supervisor) {
-          supervisor.subordinates.push(payload)
-          usersList = supervisor.subordinates
-        }
-      } else {
-        state.users.push(payload)
-        usersList = state.users
-      }
-      if (state.sortingParams.field) {
-        usersList.sort(compare(state.sortingParams))
-      }
+      addUserAndSort(state.users, payload, state.sortingParams)
     },
     SORT_USERS: (state, payload) => {
       updateSortingParams(state.sortingParams, payload)
@@ -61,6 +50,7 @@ export const store = new Vuex.Store({
       state.toggledUsersUUID.splice(index, 1)
     }
   },
+
   actions: {
     ADD_USER: ({ commit }, payload) => {
       commit('ADD_USER', payload)
@@ -76,5 +66,6 @@ export const store = new Vuex.Store({
       }
     }
   },
+
   plugins: [vuexLocal.plugin]
 })

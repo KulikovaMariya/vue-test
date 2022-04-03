@@ -1,4 +1,4 @@
-export function getUserByUUID (users, UUID) {
+function getUserByUUID (users, UUID) {
   for (let i = 0; i < users.length; i++) {
     if (users[i].UUID === UUID) {
       return users[i]
@@ -30,9 +30,29 @@ export function updateSortingParams (sortingParams, field) {
   }
 }
 
-export function compare ({ field, direction }) {
+function compare ({ field, direction }) {
   return (a, b) => {
     return ((a[field] ? a[field].toLowerCase() : '') < (b[field] ? b[field].toLowerCase() : '') && -direction) ||
       ((a[field] ? a[field].toLowerCase() : '') > (b[field] ? b[field].toLowerCase() : '') && direction) || 0
+  }
+}
+
+export function addUserAndSort(users, newUSer, sortingParams) {
+  let usersList
+  if (newUSer.supervisorUUID) {
+    const supervisor = getUserByUUID(users, newUSer.supervisorUUID)
+    if (supervisor) {
+      supervisor.subordinates.push(newUSer)
+      usersList = supervisor.subordinates
+    } else {
+      throw new Error(`Supervisor ${newUSer.supervisorUUID} not found`)
+    }
+  } else {
+    users.push(newUSer)
+    usersList = users
+  }
+
+  if (sortingParams.field) {
+    usersList.sort(compare(sortingParams))
   }
 }
