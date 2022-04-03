@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
-import { getUserByUUID, sortUsersByField } from "./helpers";
+import { getUserByUUID, sortUsersByField, compare } from "./helpers";
 
 Vue.use(Vuex)
 
@@ -40,7 +40,8 @@ export const store = new Vuex.Store({
       }
     },
     SORT_USERS: (state, payload) => {
-      sortUsersByField(state.users, payload)
+      // TODO проверить
+      sortUsersByField(state.users, payload.field, payload.direction)
     },
     ADD_TOGGLED_USER: (state, payload) => {
       state.toggledUsersUUID.push(payload)

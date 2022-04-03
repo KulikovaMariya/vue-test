@@ -6,7 +6,7 @@
         :class="classNames"
         @click="toggle"
       />
-      <span>{{ user[property] }}</span>
+      <span>{{ user[property] || 'NULL' }}</span>
     </div>
     <template v-if="hasSubordinates">
       <users-table-cell

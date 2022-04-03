@@ -1,8 +1,14 @@
 <template>
   <div class="table">
     <div class="table__header">
-      <div class="table__title column-1" @click="onclick('name')">Имя</div>
-      <div class="table__title column-2" @click="onclick('phoneNumber')">Телефон</div>
+      <div class="table__title column-1" @click="onclick('name')">
+        <span>Имя</span>
+        <i v-if="sortingParams.field === 'name'" :class="getClassName()" />
+      </div>
+      <div class="table__title column-2" @click="onclick('phoneNumber')">
+        <span>Телефон</span>
+        <i v-if="sortingParams.field === 'phoneNumber'" :class="getClassName()" />
+      </div>
     </div>
       <div class="table__body">
         <div class="column-1">
@@ -38,9 +44,35 @@
         required: true
       }
     },
+    data () {
+      return {
+        sortingParams: {
+          field: '',
+          direction: 0
+        }
+      }
+    },
     methods: {
+      getClassName () {
+        switch (this.sortingParams.direction) {
+          case 1:
+            return 'el-icon-bottom'
+          case -1:
+            return 'el-icon-top'
+        }
+      },
       onclick (field) {
-        this.$store.dispatch('SORT_USERS', field)
+        this.setSortingDirection(field)
+        // TODO передать sortingParams
+        this.$store.dispatch('SORT_USERS', { field: field, direction: this.sortingParams.direction })
+      },
+      setSortingDirection (field) {
+       if (this.sortingParams.field !== field) {
+         this.sortingParams.field = field
+         this.sortingParams.direction = 1
+       } else {
+         this.sortingParams.direction *= -1
+        }
       }
     }
   }
@@ -79,5 +111,6 @@
   .table__title.column-2 {
     text-align: center;
     border-bottom: 0;
+    display: block;
   }
 </style>

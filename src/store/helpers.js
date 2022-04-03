@@ -12,21 +12,24 @@ export function getUserByUUID (users, UUID) {
   }
 }
 
-export function sortUsersByField (users, field) {
+export function sortUsersByField (users, field, sortDirection) {
 
   for (let i = 0; i < users.length; i++) {
     if (users[i].subordinates && users[i].subordinates.length > 0) {
-      sortUsersByField(users[i].subordinates, field)
+      sortUsersByField(users[i].subordinates, field, sortDirection)
     }
   }
+  users.sort(compare(field, sortDirection))
+}
 
-  users.sort((user1, user2) => {
-    if (user1[field].toLowerCase() > user2[field].toLowerCase()) {
-      return 1;
-    }
-    if (user1[field].toLowerCase() < user2[field].toLowerCase()) {
-      return -1;
-    }
-    return 0;
-  })
+// TODO упростить функцию
+export function compare (field, sortDirection) {
+  let direction = 1
+  if (sortDirection === -1) {
+    direction = -1
+  }
+  return (a, b) => {
+    return ((a[field] ? a[field].toLowerCase() : '') < (b[field] ? b[field].toLowerCase() : '') && -direction) ||
+      ((a[field] ? a[field].toLowerCase() : '') > (b[field] ? b[field].toLowerCase() : '') && direction) || 0
+  }
 }
