@@ -44,12 +44,9 @@
         required: true
       }
     },
-    data () {
-      return {
-        sortingParams: {
-          field: '',
-          direction: 0
-        }
+    computed: {
+      sortingParams () {
+        return this.$store.getters.sortingParams
       }
     },
     methods: {
@@ -62,17 +59,7 @@
         }
       },
       onclick (field) {
-        this.setSortingDirection(field)
-        // TODO передать sortingParams
-        this.$store.dispatch('SORT_USERS', { field: field, direction: this.sortingParams.direction })
-      },
-      setSortingDirection (field) {
-       if (this.sortingParams.field !== field) {
-         this.sortingParams.field = field
-         this.sortingParams.direction = 1
-       } else {
-         this.sortingParams.direction *= -1
-        }
+        this.$store.dispatch('SORT_USERS', field)
       }
     }
   }
