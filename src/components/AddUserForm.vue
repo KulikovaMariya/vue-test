@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import UserService from '@/services/userService'
+import { getUsersFlatList } from '@/store/helpers'
 
   export default {
     name: "EmployeeForm",
@@ -51,7 +51,7 @@ import UserService from '@/services/userService'
     },
    computed: {
       supervisors () {
-        return UserService.getUsersFlatList()
+        return getUsersFlatList(this.$store.getters.users)
       }
    },
     methods: {
