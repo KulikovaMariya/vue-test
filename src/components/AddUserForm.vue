@@ -31,7 +31,7 @@
         </el-select>
       </el-col>
     </el-row>
-    <el-button :disabled="idDisabledBtn" type="primary" @click="onClick">Сохранить</el-button>
+    <el-button :disabled="isDisabledBtn" type="primary" @click="onClick">Сохранить</el-button>
   </div>
 </template>
 
@@ -53,7 +53,7 @@ import { getUsersFlatList } from '@/store/helpers'
     supervisors () {
       return getUsersFlatList(this.$store.getters.users)
     },
-    idDisabledBtn () {
+    isDisabledBtn () {
       if (this.user.name === null || this.user.phoneNumber === null) {
         return true
       }
